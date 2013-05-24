@@ -24,12 +24,13 @@ import static org.junit.Assert.*;
  */
 public class ConvertHTMLPostTest {
 
-    final static String DIR_WITH_CHILDREN = getFileName("/data/input/2008/11");
-    final static String DIR_WITHOUT_CHILDREN = getFileName("/data/input/2008/11/19/web-marketing");
-    public static final String DIR2_WITHOUT_CHILDREN = getFileName("/data/input/2008/11/21/plaxo-the-service-i-lovehate");
-    public static final String OUTPUT_DIR = getFileName("/data/output/");
-    public static final String INPUT_FILE = getFileName("/data/input/test.txt");
-    public static final String EXPECTED_FILE = getFileName("/data/expected/test.txt");
+    private final static String DIR_NAME = "/Users/robweaver/NetBeansProjects/WordPressRecover/target/test-classes/data/input/2008/11";
+    private final static String DIR_WITH_CHILDREN = getRelativeFileName("/data/input/2008/11");
+    private final static String DIR_WITHOUT_CHILDREN = getRelativeFileName("/data/input/2008/11/19/web-marketing");
+    private static final String DIR2_WITHOUT_CHILDREN = getRelativeFileName("/data/input/2008/11/21/plaxo-the-service-i-lovehate");
+    private static final String OUTPUT_DIR = getRelativeFileName("/data/output/");
+    private static final String INPUT_FILE = getRelativeFileName("/data/input/test.txt");
+    private static final String EXPECTED_FILE = getRelativeFileName("/data/expected/test.txt");
 
     public ConvertHTMLPostTest() {
     }
@@ -68,6 +69,11 @@ public class ConvertHTMLPostTest {
 
         List<Path> result = instance.getBottomBranches(dirName);
         assertEquals(expResult, result);
+        
+        // Test again for good measure ...
+        result = instance.getBottomBranches(DIR_NAME);
+        assertEquals(expResult, result);
+        
 
     }
 
@@ -153,7 +159,7 @@ public class ConvertHTMLPostTest {
         instance.setUrl(expResult);
         String result = instance.getUrl();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -179,8 +185,8 @@ public class ConvertHTMLPostTest {
         instance.setPostname(expResult);
         String result = instance.getPostname();
         assertEquals(expResult, result);
-        
-        
+
+
     }
 
     /**
@@ -193,7 +199,7 @@ public class ConvertHTMLPostTest {
         ConvertHTMLPost instance = new ConvertHTMLPost();
         instance.setPostname(postname);
         assertEquals(postname, instance.getPostname());
-        
+
     }
 
     /**
@@ -207,7 +213,7 @@ public class ConvertHTMLPostTest {
         instance.setPostDate(expResult);
         String result = instance.getPostDate();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -233,7 +239,7 @@ public class ConvertHTMLPostTest {
         instance.setPostTime(expResult);
         String result = instance.getPostTime();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -254,7 +260,7 @@ public class ConvertHTMLPostTest {
      * @param fileName
      * @return Full path for file in the test folder ...
      */
-    public static String getFileName(String fileName) {
+    public static String getRelativeFileName(String fileName) {
         return ConvertHTMLPostTest.class.getClass().getResource(fileName).getFile();
     }
 }

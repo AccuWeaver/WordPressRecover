@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.191" errors="0" skipped="0" tests="12" name="com.accuweaver.ConvertHTMLPostTest">
+<testsuite failures="0" time="0.252" errors="0" skipped="0" tests="12" name="com.accuweaver.ConvertHTMLPostTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home/jre/lib"/>
@@ -59,16 +59,16 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.024" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetBottomBranches"/>
+  <testcase time="0.031" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetBottomBranches"/>
   <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testHasChildren"/>
-  <testcase time="0.009" classname="com.accuweaver.ConvertHTMLPostTest" name="testReadSmallTextFile"/>
-  <testcase time="0.059" classname="com.accuweaver.ConvertHTMLPostTest" name="testWriteSmallTextFile"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetUrl"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetUrl"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostname"/>
+  <testcase time="0.012" classname="com.accuweaver.ConvertHTMLPostTest" name="testReadSmallTextFile"/>
+  <testcase time="0.034" classname="com.accuweaver.ConvertHTMLPostTest" name="testWriteSmallTextFile"/>
+  <testcase time="0.001" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetUrl"/>
+  <testcase time="0.001" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetUrl"/>
+  <testcase time="0.015" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostname"/>
   <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostname"/>
   <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostDate"/>
-  <testcase time="0.001" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostDate"/>
-  <testcase time="0.001" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostTime"/>
-  <testcase time="0.003" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostTime"/>
+  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostDate"/>
+  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostTime"/>
+  <testcase time="0.047" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostTime"/>
 </testsuite>
