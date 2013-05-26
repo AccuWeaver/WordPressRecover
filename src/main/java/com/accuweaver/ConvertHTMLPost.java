@@ -84,7 +84,7 @@ public class ConvertHTMLPost {
      * @return
      * @throws IOException 
      */
-    public List<String> writeXML(String dirName) throws IOException {
+    private List<String> writeXML(String dirName) throws IOException {
         logger.log(Level.INFO, "hasChildren: {0}", hasChildren(dirName));
         List<String> output = new ArrayList<>();
         output.add(XML_HEAD);
@@ -201,13 +201,15 @@ public class ConvertHTMLPost {
     private void addFile(String fileName, List<String> input, List<String> output) throws IOException {
         List<String> contents = this.readSmallTextFile(fileName);
         // This will be a loop once I figure out the tree structure ...
-        this.addItem(contents, output);
+        output.addAll(this.addItem(contents));
     }
 
-    private void addItem(List<String> input, List<String> output) throws IOException {
+    private List<String> addItem(List<String> input) throws IOException {
+        List<String> output = new ArrayList();
+        
+        boolean noTitle = true;
+        
         // Open the item ...
-
-
         boolean articleLines = false;
 
         Pattern p = Pattern.compile("<.*href='(.*?)/'.*>");
@@ -246,6 +248,7 @@ public class ConvertHTMLPost {
                 for (String title : splitText) {
                     if (title.contains("</h1")) {
                         output.add(title.substring(0, title.length() - 4));
+                        noTitle=false;
                         break;
                     }
                 }
@@ -271,8 +274,12 @@ public class ConvertHTMLPost {
             }
         }
 
+        if (noTitle){
+            return new ArrayList();
+        }
         // Done with the file write the ending
         output.add(getEndContent());
+        return output;
 
     }
 
@@ -439,13 +446,4 @@ public class ConvertHTMLPost {
         this.postTime = postTime;
     }
 
-    /**
-     * Convenience method to get the full file system file name for testing
-     *
-     * @param fileName
-     * @return Full path for file in the test folder ...
-     */
-    public static String getRelativeFileName(String fileName) {
-        return ConvertHTMLPost.class.getClass().getResource(fileName).getFile();
-    }
 }

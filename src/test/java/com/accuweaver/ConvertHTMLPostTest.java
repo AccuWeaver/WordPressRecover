@@ -5,14 +5,15 @@
 package com.accuweaver;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -69,11 +70,11 @@ public class ConvertHTMLPostTest {
 
         List<Path> result = instance.getBottomBranches(dirName);
         assertEquals(expResult, result);
-        
+
         // Test again for good measure ...
         result = instance.getBottomBranches(DIR_NAME);
         assertEquals(expResult, result);
-        
+
 
     }
 
@@ -262,5 +263,19 @@ public class ConvertHTMLPostTest {
      */
     public static String getRelativeFileName(String fileName) {
         return ConvertHTMLPostTest.class.getClass().getResource(fileName).getFile();
+    }
+
+    /**
+     * Test of hasIndexFile method, of class ConvertHTMLPost.
+     */
+    @Test
+    public void testHasIndexFile() throws Exception {
+        System.out.println("hasIndexFile");
+        ConvertHTMLPost instance = new ConvertHTMLPost();
+        boolean result = instance.hasIndexFile(getRelativeFileName("/data/input"));
+        assertFalse(result);
+
+        assertTrue(instance.hasIndexFile(DIR_WITH_CHILDREN));
+
     }
 }
