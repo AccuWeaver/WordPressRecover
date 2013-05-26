@@ -79,10 +79,10 @@ public class ConvertHTMLPost {
 
     /**
      * Write the XML for this directory ...
-     * 
+     *
      * @param dirName
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     private List<String> writeXML(String dirName) throws IOException {
         logger.log(Level.INFO, "hasChildren: {0}", hasChildren(dirName));
@@ -114,7 +114,6 @@ public class ConvertHTMLPost {
         ConvertHTMLPost converter = new ConvertHTMLPost();
 
         List<String> output = converter.writeXML(DIR_NAME);
-
 
         converter.writeSmallTextFile(output, OUTPUT_FILE_NAME);
     }
@@ -205,12 +204,13 @@ public class ConvertHTMLPost {
     }
 
     private List<String> addItem(List<String> input) throws IOException {
-        List<String> output = new ArrayList();
-        
+        List<String> output = new ArrayList<String>();
+        output.add("<item>");
         boolean noTitle = true;
-        
+
         // Open the item ...
         boolean articleLines = false;
+
 
         Pattern p = Pattern.compile("<.*href='(.*?)/'.*>");
         Pattern patternTime = Pattern.compile("<time.*datetime=\"(.*?)T(.*?)\\+");
@@ -248,7 +248,7 @@ public class ConvertHTMLPost {
                 for (String title : splitText) {
                     if (title.contains("</h1")) {
                         output.add(title.substring(0, title.length() - 4));
-                        noTitle=false;
+                        noTitle = false;
                         break;
                     }
                 }
@@ -269,16 +269,19 @@ public class ConvertHTMLPost {
 
             // Check if we're past entry content
             if (articleLines) {
+                s = s.replaceAll("http://.*?/blog.accuweaver.com/__oneclick_uploads/", "/");
                 output.add(s);
-                output.add("\n");
+//                output.add("\n");
             }
         }
 
-        if (noTitle){
+        if (noTitle) {
             return new ArrayList();
         }
         // Done with the file write the ending
         output.add(getEndContent());
+        output.add(getContent());
+        output.add("</item>");
         return output;
 
     }
@@ -445,5 +448,4 @@ public class ConvertHTMLPost {
     public void setPostTime(String postTime) {
         this.postTime = postTime;
     }
-
 }
