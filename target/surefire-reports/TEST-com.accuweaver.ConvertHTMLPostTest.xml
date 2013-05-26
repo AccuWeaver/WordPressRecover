@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.252" errors="0" skipped="0" tests="12" name="com.accuweaver.ConvertHTMLPostTest">
+<testsuite failures="0" time="0.108" errors="2" skipped="0" tests="2" name="com.accuweaver.ConvertHTMLPostTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home/jre/lib"/>
@@ -59,16 +59,59 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.031" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetBottomBranches"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testHasChildren"/>
-  <testcase time="0.012" classname="com.accuweaver.ConvertHTMLPostTest" name="testReadSmallTextFile"/>
-  <testcase time="0.034" classname="com.accuweaver.ConvertHTMLPostTest" name="testWriteSmallTextFile"/>
-  <testcase time="0.001" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetUrl"/>
-  <testcase time="0.001" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetUrl"/>
-  <testcase time="0.015" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostname"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostname"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostDate"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostDate"/>
-  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="testGetPostTime"/>
-  <testcase time="0.047" classname="com.accuweaver.ConvertHTMLPostTest" name="testSetPostTime"/>
+  <testcase time="0" classname="com.accuweaver.ConvertHTMLPostTest" name="com.accuweaver.ConvertHTMLPostTest">
+    <error type="java.lang.ExceptionInInitializerError">java.lang.ExceptionInInitializerError
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:27)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
+Caused by: java.lang.NullPointerException
+	at com.accuweaver.ConvertHTMLPostTest.getRelativeFileName(ConvertHTMLPostTest.java:264)
+	at com.accuweaver.ConvertHTMLPostTest.&lt;clinit&gt;(ConvertHTMLPostTest.java:31)
+	... 22 more
+</error>
+  </testcase>
+  <testcase time="0.01" classname="com.accuweaver.ConvertHTMLPostTest" name="com.accuweaver.ConvertHTMLPostTest">
+    <error message="Could not initialize class com.accuweaver.ConvertHTMLPostTest" type="java.lang.NoClassDefFoundError">java.lang.NoClassDefFoundError: Could not initialize class com.accuweaver.ConvertHTMLPostTest
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:37)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
+</error>
+  </testcase>
 </testsuite>

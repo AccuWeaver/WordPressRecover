@@ -60,7 +60,7 @@ public class ConvertHTMLPostTest {
 
         String dirName = DIR_WITH_CHILDREN;
         ConvertHTMLPost instance = new ConvertHTMLPost();
-        List<Path> expResult = new ArrayList<Path>();
+        List<Path> expResult = new ArrayList<>();
 
 
         // These are hard coded to my folder, probably should be in a folder in the project to make it all nicely portable.

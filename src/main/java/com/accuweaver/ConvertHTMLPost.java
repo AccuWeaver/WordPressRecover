@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class ConvertHTMLPost {
 
     private static final Logger logger = Logger.getLogger(ConvertHTMLPost.class.getName());
-    private final static String DIR_NAME = "/Users/robweaver/NetBeansProjects/WordPressRecover/target/test-classes/data/input/2008";
+    private final static String DIR_NAME = "/Users/robweaver/Downloads/blog.accuweaver.com";
     private final static String OUTPUT_FILE_NAME = "output.xml";
     private final static Charset ENCODING = StandardCharsets.UTF_8;
     private static final String XML_HEAD = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
@@ -133,6 +133,7 @@ public class ConvertHTMLPost {
 
         // Has children means we need to recurse
         if (hasChildren(dirName)) {
+            logger.log(Level.FINEST, "Traversing ''{0}''", dirName);
             DirectoryStream<Path> dirStream = Files.newDirectoryStream(FileSystems.getDefault().getPath(dirName));
             for (Path path : dirStream) {
                 if (Files.isDirectory(path, LinkOption.NOFOLLOW_LINKS)) {
@@ -144,10 +145,10 @@ public class ConvertHTMLPost {
             // TODO: one more check - we need to verify that there are index.html files
             //       in the directory before we decide this is really a bottom
             if (hasIndexFile(dirName)) {
-                logger.finer("Found an index.html file in '" + dirName + "'");
+                logger.log(Level.FINER, "Found an index.html file in ''{0}''", dirName);
                 returnBottom.add(FileSystems.getDefault().getPath(dirName));
             } else {
-                logger.finer("No index.html file in '" + dirName + "'");
+                logger.log(Level.FINER, "No index.html file in ''{0}''", dirName);
             }
         }
 
