@@ -259,7 +259,7 @@ public class ConvertHTMLPost {
             // Look for the entry-content
             if (s.contains("class=\"entry-content")) {
                 articleLines = true;
-                output.add("<content:encoded><![CDATA[[caption id=\"\" align=\"alignright\" width=\"239\"]\n");
+                output.add("<content:encoded><![CDATA[\n");
                 continue;
             }
 
@@ -335,7 +335,6 @@ public class ConvertHTMLPost {
 
     private String getPostNameString() {
         return "            <wp:post_name>"
-                + "test-name-"
                 + this.getPostname()
                 + "</wp:post_name>\n";
     }
@@ -347,7 +346,6 @@ public class ConvertHTMLPost {
                 + "            <wp:post_type>post</wp:post_type>\n"
                 + "            <wp:post_password></wp:post_password>\n"
                 + "            <wp:is_sticky>0</wp:is_sticky>\n"
-                + "            <category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>\n"
                 + "            <category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>\n";
     }
 
