@@ -8,12 +8,10 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,27 +31,43 @@ public class ConvertHTMLPostTest {
     private static final String INPUT_FILE = getRelativeFileName("/data/input/test.txt");
     private static final String EXPECTED_FILE = getRelativeFileName("/data/expected/test.txt");
 
+    /**
+     *
+     */
     public ConvertHTMLPostTest() {
     }
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
 
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp() {
     }
 
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
 
     /**
      * Test of getBottomBranches method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testGetBottomBranches() throws Exception {
@@ -91,6 +105,7 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of hasChildren method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testHasChildren() throws Exception {
@@ -113,6 +128,7 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of readSmallTextFile method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testReadSmallTextFile() throws Exception {
@@ -132,6 +148,7 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of writeSmallTextFile method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testWriteSmallTextFile() throws Exception {
@@ -267,6 +284,7 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of hasIndexFile method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testHasIndexFile() throws Exception {
