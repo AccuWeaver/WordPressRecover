@@ -341,6 +341,7 @@ public class ConvertHTMLPost {
 
         if (contents.size() > 0) {
             // This will be a loop once I figure out the tree structure ...
+            output.add("\n<!-- '" + fileName + "' -->\n");
             output.addAll(addItem(contents));
         }
     }
@@ -369,6 +370,14 @@ public class ConvertHTMLPost {
         // Loop through the file
         for (String s : input) {
 
+            // Only want to to posts ...
+            if (s.contains("<article")){
+                if (!s.contains("type-post")){
+                    break;
+                }
+                // TODO: this line also contains the tags, categories and post ID
+            }
+            
             // Skip if we are on meta data ...
             if (s.contains("class=\"entry-meta")) {
                 continue;
