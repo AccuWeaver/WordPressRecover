@@ -2,12 +2,16 @@ package com.accuweaver;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +29,7 @@ import java.util.regex.Pattern;
 public class ConvertHTMLPost {
 
     private static final Logger logger = Logger.getLogger(ConvertHTMLPost.class.getName());
-    private final static String DIR_NAME = "/Users/robweaver/Downloads/blog.accuweaver.com";
+    private final static String DIR_NAME = "/Users/robweaver/Downloads/Stuf";
     private final static String OUTPUT_FILE_NAME = "output.xml";
     private final static Charset ENCODING = StandardCharsets.UTF_8;
     private static final String XML_HEAD = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
@@ -79,30 +83,72 @@ public class ConvertHTMLPost {
 
     /**
      * Write the XML for this directory ...
-     * 
+     *
      * @param dirName
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public List<String> writeXML(String dirName) throws IOException {
+        // See if we have any children
         logger.log(Level.INFO, "hasChildren: {0}", hasChildren(dirName));
+
+        // Array for output
         List<String> output = new ArrayList<>();
+
+        // Add the XML begin
         output.add(XML_HEAD);
+
+        // Add the heading information
         output.add(HEADING);
+
+        List<Path> files = getFiles(dirName);
+
+        for (Path file : files) {
+            logger.log(Level.INFO, "File ''{0}''", file.toString());
+            addFile(file.toString(), output, output);
+        }
+
+        // Get the collection of folders with index.html files in them ...
         List<Path> paths = getBottomBranches(dirName);
+
+        // Loop through those folders ...
         for (Path path : paths) {
             logger.log(Level.INFO, "Path ''{0}''", path.toString());
             addFile(path.toString() + "/index.html", output, output);
         }
+
         // Close the channel
         output.add("    </channel>\n"
                 + "</rss>");
         return output;
     }
+
+    private List<Path> getFiles(String dirName) throws IOException {
+        List<Path> paths = new ArrayList<Path>();
+        PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*.html");
+        DirectoryStream<Path> dirStream = Files.newDirectoryStream(FileSystems.getDefault().getPath(dirName));
+        for (Path path : dirStream) {
+            Path name = path.getFileName();
+            if (name != null && matcher.matches(name)) {
+                if (Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
+                    // Add the file to the list ...
+                    paths.add(path);
+                }
+            }
+        }
+        return paths;
+    }
+    // Starting post ID
     private int postId = 21;
+    // Url data ...
     private String url;
+    // Post name
     private String postname;
+    // Post title
+    private String postTitle;
+    // Post date
     private String postDate;
+    // Post time ...
     private String postTime;
 
     /**
@@ -113,6 +159,7 @@ public class ConvertHTMLPost {
 
         ConvertHTMLPost converter = new ConvertHTMLPost();
 
+        // Search through all the index.html files in the folder ...
         List<String> output = converter.writeXML(DIR_NAME);
 
 
@@ -163,8 +210,22 @@ public class ConvertHTMLPost {
      * @return
      * @throws IOException
      */
-    public boolean hasIndexFile(String dirName) throws IOException {
-        DirectoryStream<Path> dirStream = Files.newDirectoryStream(FileSystems.getDefault().getPath(dirName));
+    public boolean hasIndexFile(String dirName) {
+        DirectoryStream<Path> dirStream;
+        FileSystem fs = FileSystems.getDefault();
+        Path dir;
+        try {
+            dir = fs.getPath(dirName);
+        } catch (InvalidPathException ex) {
+            Logger.getLogger(ConvertHTMLPost.class.getName()).log(Level.SEVERE, "Exception in hasIndexFile, returning false", ex);
+            return false;
+        }
+        try {
+            dirStream = Files.newDirectoryStream(dir);
+        } catch (IOException ex) {
+            Logger.getLogger(ConvertHTMLPost.class.getName()).log(Level.SEVERE, "Exception in hasIndexFile, returning false", ex);
+            return false;
+        }
         for (Path path : dirStream) {
             if (Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
                 if (path.getFileName().endsWith("index.html")) {
@@ -183,11 +244,24 @@ public class ConvertHTMLPost {
      * @return
      * @throws IOException
      */
-    public boolean hasChildren(String dirName) throws IOException {
+    public boolean hasChildren(String dirName) {
         boolean foundSome = false;
-        Path dir = FileSystems.getDefault().getPath(dirName);
+        FileSystem fs = FileSystems.getDefault();
+        Path dir;
+        try {
+            dir = fs.getPath(dirName);
+        } catch (InvalidPathException ex) {
+            Logger.getLogger(ConvertHTMLPost.class.getName()).log(Level.SEVERE, "Exception in hasChildren, returning false", ex);
+            return false;
+        }
 
-        DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir);
+        DirectoryStream<Path> dirStream;
+        try {
+            dirStream = Files.newDirectoryStream(dir);
+        } catch (IOException ex) {
+            Logger.getLogger(ConvertHTMLPost.class.getName()).log(Level.SEVERE, "Exception in hasChildren, returning false", ex);
+            return false;
+        }
 
         for (Path path : dirStream) {
             if (Files.isDirectory(path, LinkOption.NOFOLLOW_LINKS)) {
@@ -200,14 +274,16 @@ public class ConvertHTMLPost {
 
     private void addFile(String fileName, List<String> input, List<String> output) throws IOException {
         List<String> contents = this.readSmallTextFile(fileName);
-        // This will be a loop once I figure out the tree structure ...
-        this.addItem(contents, output);
+        if (contents.size() > 0) {
+            // This will be a loop once I figure out the tree structure ...
+            output.add(wrapItem(addItem(contents)));
+        }
     }
 
-    private void addItem(List<String> input, List<String> output) throws IOException {
+    private String addItem(List<String> input) throws IOException {
+
+        StringBuilder sb = new StringBuilder();
         // Open the item ...
-
-
         boolean articleLines = false;
 
         Pattern p = Pattern.compile("<.*href='(.*?)/'.*>");
@@ -221,6 +297,9 @@ public class ConvertHTMLPost {
             }
 
             if (s.contains("canonical")) {
+                if (s.contains("http://www.accuweaver.com/ai1ec_event")) {
+                    break;
+                }
                 Matcher m = p.matcher(s);
                 m.find();
                 this.setUrl(m.group(1));
@@ -241,22 +320,31 @@ public class ConvertHTMLPost {
 
             // Look for the article
             if (s.contains("class=\"entry-title")) {
-                output.add("<title>");
                 String[] splitText = s.split(">");
                 for (String title : splitText) {
                     if (title.contains("</h1")) {
-                        output.add(title.substring(0, title.length() - 4));
+                        setPostTitle(title.substring(0, title.length() - 4));
+
                         break;
                     }
                 }
 
-                output.add("</title>");
+                // Add the title if we found one ...
+                if (getPostTitle().length() > 0) {
+                    sb.append("<title>");
+                    sb.append(getPostTitle());
+                    sb.append("</title>");
+                }
+
                 continue;
             }
             // Look for the entry-content
             if (s.contains("class=\"entry-content")) {
+                if (getPostTitle().length() < 1){
+                    break;
+                }
                 articleLines = true;
-                output.add("<content:encoded><![CDATA[[caption id=\"\" align=\"alignright\" width=\"239\"]\n");
+                sb.append("<content:encoded><![CDATA[[caption id=\"\" align=\"alignright\" width=\"239\"]\n");
                 continue;
             }
 
@@ -266,14 +354,18 @@ public class ConvertHTMLPost {
 
             // Check if we're past entry content
             if (articleLines) {
-                output.add(s);
-                output.add("\n");
+                sb.append(s);
+                sb.append("\n");
             }
         }
 
-        // Done with the file write the ending
-        output.add(getEndContent());
+        if (articleLines) {
+            // Done with the file write the ending
+            sb.append(getEndContent());
+            sb.append(getContent());
+        }
 
+        return sb.toString();
     }
 
     private String getContent() {
@@ -325,7 +417,6 @@ public class ConvertHTMLPost {
 
     private String getPostNameString() {
         return "            <wp:post_name>"
-                + "test-name-"
                 + this.getPostname()
                 + "</wp:post_name>\n";
     }
@@ -337,7 +428,6 @@ public class ConvertHTMLPost {
                 + "            <wp:post_type>post</wp:post_type>\n"
                 + "            <wp:post_password></wp:post_password>\n"
                 + "            <wp:is_sticky>0</wp:is_sticky>\n"
-                + "            <category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>\n"
                 + "            <category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>\n";
     }
 
@@ -356,7 +446,12 @@ public class ConvertHTMLPost {
      */
     List<String> readSmallTextFile(String aFileName) throws IOException {
         Path path = Paths.get(aFileName);
-        return Files.readAllLines(path, ENCODING);
+        List<String> returnList = new ArrayList<String>();
+        try {
+            returnList = Files.readAllLines(path, ENCODING);
+        } catch (MalformedInputException mie) {
+        }
+        return returnList;
     }
 
     /**
@@ -447,5 +542,19 @@ public class ConvertHTMLPost {
      */
     public static String getRelativeFileName(String fileName) {
         return ConvertHTMLPost.class.getClass().getResource(fileName).getFile();
+    }
+
+    /**
+     * @return the postTitle
+     */
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    /**
+     * @param postTitle the postTitle to set
+     */
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
     }
 }
