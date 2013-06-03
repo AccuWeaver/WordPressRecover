@@ -5,6 +5,7 @@
 package com.accuweaver;
 
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import static org.junit.Assert.*;
  */
 public class ConvertHTMLPostTest {
 
-    private final static String DIR_NAME = "/Users/robweaver/NetBeansProjects/WordPressRecover/target/test-classes/data/input/2008/11";
+    private final static String DIR_NAME = getRelativeFileName("/data/input");
     private final static String DIR_WITH_CHILDREN = getRelativeFileName("/data/input/2008/11");
     private final static String DIR_WITHOUT_CHILDREN = getRelativeFileName("/data/input/2008/11/19/web-marketing");
     private static final String DIR2_WITHOUT_CHILDREN = getRelativeFileName("/data/input/2008/11/21/plaxo-the-service-i-lovehate");
@@ -166,111 +167,6 @@ public class ConvertHTMLPostTest {
                 FileUtils.readFileToString(new File(EXPECTED_FILE), "utf-8"));
     }
 
-    /**
-     * Test of getUrl method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testGetUrl() {
-        System.out.println("getUrl");
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        String expResult = "http://www.accuweaver/";
-        instance.setUrl(expResult);
-        String result = instance.getUrl();
-        assertEquals(expResult, result);
-
-    }
-
-    /**
-     * Test of setUrl method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testSetUrl() {
-        System.out.println("setUrl");
-        String url = "http://www.google.com";
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        instance.setUrl(url);
-        assertEquals(url, instance.getUrl());
-    }
-
-    /**
-     * Test of getPostname method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testGetPostname() {
-        System.out.println("getPostname");
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        String expResult = "My Post Name";
-        instance.setPostname(expResult);
-        String result = instance.getPostname();
-        assertEquals(expResult, result);
-
-
-    }
-
-    /**
-     * Test of setPostname method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testSetPostname() {
-        System.out.println("setPostname");
-        String postname = "My Post";
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        instance.setPostname(postname);
-        assertEquals(postname, instance.getPostname());
-
-    }
-
-    /**
-     * Test of getPostDate method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testGetPostDate() {
-        System.out.println("getPostDate");
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        String expResult = "2013-01-04";
-        instance.setPostDate(expResult);
-        String result = instance.getPostDate();
-        assertEquals(expResult, result);
-
-    }
-
-    /**
-     * Test of setPostDate method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testSetPostDate() {
-        System.out.println("setPostDate");
-        String postDate = "";
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        instance.setPostDate(postDate);
-        assertEquals(postDate, instance.getPostDate());
-    }
-
-    /**
-     * Test of getPostTime method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testGetPostTime() {
-        System.out.println("getPostTime");
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        String expResult = "12:20:21";
-        instance.setPostTime(expResult);
-        String result = instance.getPostTime();
-        assertEquals(expResult, result);
-
-    }
-
-    /**
-     * Test of setPostTime method, of class ConvertHTMLPost.
-     */
-    @Test
-    public void testSetPostTime() {
-        System.out.println("setPostTime");
-        String postTime = "22:22:22";
-        ConvertHTMLPost instance = new ConvertHTMLPost();
-        instance.setPostTime(postTime);
-        assertEquals(postTime, instance.getPostTime());
-    }
 
     /**
      * Convenience method to get the full file system file name for testing
@@ -279,7 +175,8 @@ public class ConvertHTMLPostTest {
      * @return Full path for file in the test folder ...
      */
     public static String getRelativeFileName(String fileName) {
-        return ConvertHTMLPostTest.class.getClass().getResource(fileName).getFile();
+        URL url = ConvertHTMLPostTest.class.getResource(fileName);
+        return url.getFile();
     }
 
     /**
