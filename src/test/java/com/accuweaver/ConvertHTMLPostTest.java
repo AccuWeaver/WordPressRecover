@@ -5,7 +5,6 @@
 package com.accuweaver;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -32,27 +31,43 @@ public class ConvertHTMLPostTest {
     private static final String INPUT_FILE = getRelativeFileName("/data/input/test.txt");
     private static final String EXPECTED_FILE = getRelativeFileName("/data/expected/test.txt");
 
+    /**
+     *
+     */
     public ConvertHTMLPostTest() {
     }
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
 
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp() {
     }
 
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
 
     /**
      * Test of getBottomBranches method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testGetBottomBranches() throws Exception {
@@ -69,11 +84,11 @@ public class ConvertHTMLPostTest {
 
         List<Path> result = instance.getBottomBranches(dirName);
         assertEquals(expResult, result);
-        
+
         // Test again for good measure ...
         result = instance.getBottomBranches(DIR_NAME);
         assertEquals(expResult, result);
-        
+
 
     }
 
@@ -90,6 +105,7 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of hasChildren method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testHasChildren() throws Exception {
@@ -112,6 +128,7 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of readSmallTextFile method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testReadSmallTextFile() throws Exception {
@@ -131,6 +148,7 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of writeSmallTextFile method, of class ConvertHTMLPost.
+     * @throws Exception 
      */
     @Test
     public void testWriteSmallTextFile() throws Exception {
@@ -262,5 +280,20 @@ public class ConvertHTMLPostTest {
      */
     public static String getRelativeFileName(String fileName) {
         return ConvertHTMLPostTest.class.getClass().getResource(fileName).getFile();
+    }
+
+    /**
+     * Test of hasIndexFile method, of class ConvertHTMLPost.
+     * @throws Exception 
+     */
+    @Test
+    public void testHasIndexFile() throws Exception {
+        System.out.println("hasIndexFile");
+        ConvertHTMLPost instance = new ConvertHTMLPost();
+        boolean result = instance.hasIndexFile(getRelativeFileName("/data/input"));
+        assertFalse(result);
+
+        assertTrue(instance.hasIndexFile(DIR_WITH_CHILDREN));
+
     }
 }
