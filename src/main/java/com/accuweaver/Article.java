@@ -47,7 +47,7 @@ public class Article {
      *
      * @return
      */
-    private String getContent() {
+    public String getContent() {
         StringBuilder sb = new StringBuilder();
         sb.append(getPostIdString(postId++));
         sb.append(getPostDateString());
@@ -145,7 +145,7 @@ public class Article {
      *
      * @return
      */
-    private String getEndContent() {
+    public String getEndContent() {
         return "]]></content:encoded>\n";
     }
 
@@ -158,7 +158,7 @@ public class Article {
      * @param postId
      * @return
      */
-    private String getPostIdString(int postId) {
+    public String getPostIdString(int postId) {
         return "            <wp:post_id>"
                 + postId++
                 + "</wp:post_id>\n";
@@ -169,7 +169,7 @@ public class Article {
      *
      * @return
      */
-    private String getPostDateString() {
+    public String getPostDateString() {
         return "            <wp:post_date>"
                 + this.getPostDate()
                 + " "
@@ -185,7 +185,7 @@ public class Article {
      *
      * @return
      */
-    private String getPostDateGMTString() {
+    public String getPostDateGMTString() {
         return "            <wp:post_date_gmt>"
                 + this.getPostDate()
                 + " "
@@ -202,7 +202,7 @@ public class Article {
      *
      * @return
      */
-    private String getCommentStatusString() {
+    public String getCommentStatusString() {
         return "            <wp:comment_status>open</wp:comment_status>\n";
     }
 
@@ -213,7 +213,7 @@ public class Article {
      *
      * @return
      */
-    private String getPingStatusString() {
+    public String getPingStatusString() {
         return "            <wp:ping_status>open</wp:ping_status>\n";
     }
 
@@ -222,7 +222,7 @@ public class Article {
      *
      * @return
      */
-    private String getPostNameString() {
+    public String getPostNameString() {
         return "            <wp:post_name>"
                 + this.getPostname()
                 + "</wp:post_name>\n";
@@ -236,7 +236,7 @@ public class Article {
      *
      * @return
      */
-    private String getFixedStatusStrings() {
+    public String getFixedStatusStrings() {
         return "            <wp:status>publish</wp:status>\n"
                 + "            <wp:post_parent>0</wp:post_parent>\n"
                 + "            <wp:menu_order>0</wp:menu_order>\n"
@@ -254,7 +254,7 @@ public class Article {
      * @return List of strings representing the item
      * @throws IOException
      */
-    private String addItem(List<String> input) throws IOException {
+    public String addItem(List<String> input) throws IOException {
         StringBuilder sb = new StringBuilder();
         
         boolean noTitle = true;
@@ -402,7 +402,7 @@ public class Article {
      * @param item
      * @return
      */
-    private String wrapItem(String item) {
+    public String wrapItem(String item) {
         return "<item>"
                 + item
                 + "</item>";

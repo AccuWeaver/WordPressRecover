@@ -101,7 +101,7 @@ public class ConvertHTMLPost {
      * @return
      * @throws IOException
      */
-    private List<String> writeXML(String dirName) throws IOException {
+    public List<String> writeXML(String dirName) throws IOException {
         logger.log(Level.INFO, "hasChildren: {0}", hasChildren(dirName));
 
         // Array for output
@@ -146,7 +146,7 @@ public class ConvertHTMLPost {
      * @return
      * @throws IOException
      */
-    private List<Path> getFiles(String dirName) throws IOException {
+    public List<Path> getFiles(String dirName) throws IOException {
         List<Path> paths = new ArrayList<>();
         PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*.html");
         DirectoryStream<Path> dirStream = Files.newDirectoryStream(FileSystems.getDefault().getPath(dirName));
@@ -323,7 +323,7 @@ public class ConvertHTMLPost {
      * @param output The array to add the contents of the file to.
      * @throws IOException If there are any errors like file doesn't exist, etc.
      */
-    private void addFile(String fileName, List<String> output) throws IOException {
+    public void addFile(String fileName, List<String> output) throws IOException {
         List<String> contents = this.readSmallTextFile(fileName);
 
         if (contents.size() > 0) {
@@ -341,7 +341,7 @@ public class ConvertHTMLPost {
      * @return
      * @throws IOException
      */
-    List<String> readSmallTextFile(String aFileName) throws IOException {
+    public List<String> readSmallTextFile(String aFileName) throws IOException {
         Path path = Paths.get(aFileName);
         List<String> returnList = new ArrayList<>();
         try {
@@ -358,7 +358,7 @@ public class ConvertHTMLPost {
      * @param aFileName
      * @throws IOException
      */
-    void writeSmallTextFile(List<String> aLines, String aFileName) throws IOException {
+    public void writeSmallTextFile(List<String> aLines, String aFileName) throws IOException {
         Path path = Paths.get(aFileName);
         Files.write(path, aLines, ENCODING);
     }

@@ -182,4 +182,175 @@ public class ArticleTest {
         instance.setPostContents(postContents);
         assertEquals(postContents, instance.getPostContents());
     }
+
+    /**
+     * Test of getContent method, of class Article.
+     */
+    @Test
+    public void testGetContent() {
+        System.out.println("getContent");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getContent();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPostDate method, of class Article.
+     */
+    @Test
+    public void testGetPostDate() {
+        System.out.println("getPostDate");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getPostDate();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getEndContent method, of class Article.
+     */
+    @Test
+    public void testGetEndContent() {
+        System.out.println("getEndContent");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getEndContent();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPostIdString method, of class Article.
+     */
+    @Test
+    public void testGetPostIdString() {
+        System.out.println("getPostIdString");
+        int postId = 0;
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getPostIdString(postId);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPostDateString method, of class Article.
+     */
+    @Test
+    public void testGetPostDateString() {
+        System.out.println("getPostDateString");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getPostDateString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPostDateGMTString method, of class Article.
+     */
+    @Test
+    public void testGetPostDateGMTString() {
+        System.out.println("getPostDateGMTString");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getPostDateGMTString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCommentStatusString method, of class Article.
+     */
+    @Test
+    public void testGetCommentStatusString() {
+        System.out.println("getCommentStatusString");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getCommentStatusString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPingStatusString method, of class Article.
+     */
+    @Test
+    public void testGetPingStatusString() {
+        System.out.println("getPingStatusString");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getPingStatusString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPostNameString method, of class Article.
+     */
+    @Test
+    public void testGetPostNameString() {
+        System.out.println("getPostNameString");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getPostNameString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getFixedStatusStrings method, of class Article.
+     */
+    @Test
+    public void testGetFixedStatusStrings() {
+        System.out.println("getFixedStatusStrings");
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.getFixedStatusStrings();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addItem method, of class Article.
+     */
+    @Test
+    public void testAddItem() throws Exception {
+        System.out.println("addItem");
+        List<String> input = null;
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.addItem(input);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of wrapItem method, of class Article.
+     */
+    @Test
+    public void testWrapItem() {
+        System.out.println("wrapItem");
+        String item = "";
+        Article instance = new Article();
+        String expResult = "";
+        String result = instance.wrapItem(item);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }
