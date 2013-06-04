@@ -26,6 +26,10 @@ public class Article {
     private String postTime;
     // Contents
     private String postContents;
+    // Comment status - default to "open"
+    private String commentStatus = "open";
+    // Ping status - default to "open"
+    private String pingStatus = "open";
 
     /**
      * Constructor ...
@@ -162,7 +166,7 @@ public class Article {
      * @return
      */
     public String getPostIdString(int postId) {
-        return "            <wp:post_id>"
+        return "<wp:post_id>"
                 + postId++
                 + "</wp:post_id>\n";
     }
@@ -173,11 +177,15 @@ public class Article {
      * @return
      */
     public String getPostDateString() {
-        return "            <wp:post_date>"
-                + this.getPostDate()
-                + " "
-                + this.getPostTime()
-                + "</wp:post_date>\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("<wp:post_date>");
+        if (this.getPostDate() != null) {
+            sb.append(this.getPostDate());
+            sb.append(" ");
+            sb.append(this.getPostTime());
+        }
+        sb.append("</wp:post_date>");
+        return sb.toString();
     }
 
     /**
@@ -189,11 +197,15 @@ public class Article {
      * @return
      */
     public String getPostDateGMTString() {
-        return "            <wp:post_date_gmt>"
-                + this.getPostDate()
-                + " "
-                + this.getPostTime()
-                + "</wp:post_date_gmt>\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("<wp:post_date_gmt>");
+        if (this.getPostDate() != null) {
+            sb.append(this.getPostDate());
+            sb.append(" ");
+            sb.append(this.getPostTime());
+        }
+        sb.append("</wp:post_date_gmt>");
+        return sb.toString();
     }
 
     /**
@@ -206,7 +218,11 @@ public class Article {
      * @return
      */
     public String getCommentStatusString() {
-        return "            <wp:comment_status>open</wp:comment_status>\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("<wp:comment_status>");
+        sb.append(getCommentStatus());
+        sb.append("</wp:comment_status>");
+        return sb.toString();
     }
 
     /**
@@ -217,7 +233,11 @@ public class Article {
      * @return
      */
     public String getPingStatusString() {
-        return "            <wp:ping_status>open</wp:ping_status>\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("<wp:ping_status>");
+        sb.append(getPingStatus());
+        sb.append("</wp:ping_status>");
+        return sb.toString();
     }
 
     /**
@@ -226,9 +246,11 @@ public class Article {
      * @return
      */
     public String getPostNameString() {
-        return "            <wp:post_name>"
-                + this.getPostname()
-                + "</wp:post_name>\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("<wp:post_name>");
+        sb.append(getPostname());
+        sb.append("</wp:post_name>");
+        return sb.toString();
     }
 
     /**
@@ -240,13 +262,15 @@ public class Article {
      * @return
      */
     public String getFixedStatusStrings() {
-        return "            <wp:status>publish</wp:status>\n"
-                + "            <wp:post_parent>0</wp:post_parent>\n"
-                + "            <wp:menu_order>0</wp:menu_order>\n"
-                + "            <wp:post_type>post</wp:post_type>\n"
-                + "            <wp:post_password></wp:post_password>\n"
-                + "            <wp:is_sticky>0</wp:is_sticky>\n"
-                + "            <category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("<wp:status>publish</wp:status>");
+        sb.append("<wp:post_parent>0</wp:post_parent>");
+        sb.append("<wp:menu_order>0</wp:menu_order>");
+        sb.append("<wp:post_type>post</wp:post_type>");
+        sb.append("<wp:post_password></wp:post_password>");
+        sb.append("<wp:is_sticky>0</wp:is_sticky>");
+        sb.append("<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>");
+        return sb.toString();
     }
 
     /**
@@ -419,5 +443,13 @@ public class Article {
      */
     public void setPostContents(String postContents) {
         this.postContents = postContents;
+    }
+
+    private String getCommentStatus() {
+        return commentStatus;
+    }
+
+    private String getPingStatus() {
+        return pingStatus;
     }
 }
