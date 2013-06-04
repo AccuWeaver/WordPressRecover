@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
  * @author rweaver
  */
 public class Article {
-   // Starting post ID
+    // Starting post ID
+
     private int postId = 21;
     // Url data ...
     private String url;
@@ -25,23 +26,23 @@ public class Article {
     private String postTime;
     // Contents
     private String postContents;
-    
+
     /**
      * Constructor ...
-     * 
+     *
      * @param fileContents - array of data to be parsed ...
      * @throws IOException
      */
-    public Article(List<String> fileContents) throws IOException{
-        this.postContents = addItem(fileContents);
+    public Article(List<String> fileContents) throws IOException {
+        this.postContents = readItem(fileContents);
     }
 
-    /** 
+    /**
      * Default constructor
      */
     public Article() {
     }
-    
+
     /**
      * Get the content String ...
      *
@@ -59,7 +60,8 @@ public class Article {
         sb.append(getFixedStatusStrings());
         return sb.toString();
     }
-        /**
+
+    /**
      * @return the url
      */
     public String getUrl() {
@@ -140,7 +142,8 @@ public class Article {
     public void setPostTitle(String postTitle) {
         this.postTitle = postTitle;
     }
-        /**
+
+    /**
      * Get the end content string
      *
      * @return
@@ -254,9 +257,21 @@ public class Article {
      * @return List of strings representing the item
      * @throws IOException
      */
+    private String readItem(List<String> input) throws IOException {
+        return addItem(input);
+    }
+
+    /**
+     * Adds the values from the list of Strings to as contents of an item
+     * element for the article being processed.
+     *
+     * @param input List containing the contents of an index.html file
+     * @return List of strings representing the item
+     * @throws IOException
+     */
     public String addItem(List<String> input) throws IOException {
         StringBuilder sb = new StringBuilder();
-        
+
         boolean noTitle = true;
         boolean articleLines = false;
 
@@ -272,40 +287,25 @@ public class Article {
 
             /**
              * Begin article - this includes some meta data
-             * 
-             * <article id="post-17" class="post-17 
-             *          post type-post 
-             *          status-publish 
-             *          format-standard 
-             *          hentry 
-             *          category-restful-web-services 
-             *          category-web tag-data 
-             *          tag-data-formats 
-             *          tag-html 
-             *          tag-markup-language 
-             *          tag-tools 
-             *          tag-uniform-resource-locator 
-             *          tag-xhtml 
-             *          tag-xml 
-             *          content-single ">
-             * 
-             *  A "page" will look more like:
-             * <article id="post-1958" 
-             *          class="post-1958 
-             *          page 
-             *          type-page 
-             *          status-publish 
-             *          hentry 
-             *          content-page">
+             *
+             * <article id="post-17" class="post-17 post type-post
+             * status-publish format-standard hentry
+             * category-restful-web-services category-web tag-data
+             * tag-data-formats tag-html tag-markup-language tag-tools
+             * tag-uniform-resource-locator tag-xhtml tag-xml content-single ">
+             *
+             * A "page" will look more like:
+             * <article id="post-1958" class="post-1958 page type-page
+             * status-publish hentry content-page">
              */
-            if (s.contains("<article")){
+            if (s.contains("<article")) {
                 // If we don't see "type-post", then it's not a post
-                if (!s.contains("type-post")){
+                if (!s.contains("type-post")) {
                     break;
                 }
                 // TODO: this line also contains the tags, categories and post ID
             }
-            
+
             // Skip if we are on meta data ...
             if (s.contains("class=\"entry-meta")) {
                 continue;
@@ -391,10 +391,9 @@ public class Article {
         // Done with the file write the ending
         sb.append(getEndContent());
         sb.append(getContent());
-       
+
         return wrapItem(sb.toString());
     }
-
 
     /**
      * Simple method to wrap a string as an item XML snippet.
@@ -421,5 +420,4 @@ public class Article {
     public void setPostContents(String postContents) {
         this.postContents = postContents;
     }
-
 }
