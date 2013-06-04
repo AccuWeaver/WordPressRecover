@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,6 +26,7 @@ import static org.junit.Assert.*;
  */
 public class ConvertHTMLPostTest {
 
+    private static final Logger logger = Logger.getLogger(ConvertHTMLPostTest.class.getName());
     private final static String DIR_NAME = getRelativeFileName("/data/input");
     private final static String DIR_WITH_CHILDREN = getRelativeFileName("/data/input/2008/11");
     private final static String DIR_WITHOUT_CHILDREN = getRelativeFileName("/data/input/2008/11/19/web-marketing");
@@ -68,11 +71,12 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of getBottomBranches method, of class ConvertHTMLPost.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testGetBottomBranches() throws Exception {
-        System.out.println("getBottomBranches");
+        logger.info("getBottomBranches");
 
         String dirName = DIR_WITH_CHILDREN;
         ConvertHTMLPost instance = new ConvertHTMLPost();
@@ -106,11 +110,12 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of hasChildren method, of class ConvertHTMLPost.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testHasChildren() throws Exception {
-        System.out.println("hasChildren");
+        logger.info("hasChildren");
 
         // First check with a directory that has children
         String dirName = DIR_WITH_CHILDREN;
@@ -129,13 +134,13 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of readSmallTextFile method, of class ConvertHTMLPost.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testReadSmallTextFile() throws Exception {
-        System.out.println("readSmallTextFile");
-        System.out.println("Working Directory = "
-                + System.getProperty("user.dir"));
+        logger.info("readSmallTextFile");
+        logger.log(Level.INFO, "Working Directory = {0}", System.getProperty("user.dir"));
         ConvertHTMLPost instance = new ConvertHTMLPost();
         List<String> expResult = new ArrayList();
         expResult.add("This is a test");
@@ -149,11 +154,12 @@ public class ConvertHTMLPostTest {
 
     /**
      * Test of writeSmallTextFile method, of class ConvertHTMLPost.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testWriteSmallTextFile() throws Exception {
-        System.out.println("writeSmallTextFile");
+        logger.info("writeSmallTextFile");
         List<String> aLines = new ArrayList();
         aLines.add("This is a test");
         aLines.add("The quick brown fox ran over the lazy red dog");
@@ -167,7 +173,6 @@ public class ConvertHTMLPostTest {
                 FileUtils.readFileToString(new File(EXPECTED_FILE), "utf-8"));
     }
 
-
     /**
      * Convenience method to get the full file system file name for testing
      *
@@ -176,16 +181,23 @@ public class ConvertHTMLPostTest {
      */
     public static String getRelativeFileName(String fileName) {
         URL url = ConvertHTMLPostTest.class.getResource(fileName);
-        return url.getFile();
+        String returnValue = url.getPath();
+
+        if (returnValue.startsWith("/C:")) {
+            returnValue = returnValue.substring(1);
+        }
+        logger.log(Level.INFO, "File ''{0}'' = ''{1}''", new Object[]{fileName, returnValue});
+        return returnValue;
     }
 
     /**
      * Test of hasIndexFile method, of class ConvertHTMLPost.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testHasIndexFile() throws Exception {
-        System.out.println("hasIndexFile");
+        logger.info("hasIndexFile");
         ConvertHTMLPost instance = new ConvertHTMLPost();
         boolean result = instance.hasIndexFile(getRelativeFileName("/data/input"));
         assertFalse(result);
