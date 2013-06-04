@@ -26,11 +26,20 @@ public class Article {
     // Contents
     private String postContents;
     
+    /**
+     * Constructor ...
+     * 
+     * @param fileContents - array of data to be parsed ...
+     * @throws IOException
+     */
     public Article(List<String> fileContents) throws IOException{
         this.postContents = addItem(fileContents);
     }
 
-    Article() {
+    /** 
+     * Default constructor
+     */
+    public Article() {
     }
     
     /**
