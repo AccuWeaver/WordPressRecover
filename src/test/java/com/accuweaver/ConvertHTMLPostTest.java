@@ -193,4 +193,60 @@ public class ConvertHTMLPostTest {
         assertTrue(instance.hasIndexFile(DIR_WITH_CHILDREN));
 
     }
+
+    /**
+     * Test of writeXML method, of class ConvertHTMLPost.
+     */
+    @Test
+    public void testWriteXML() throws Exception {
+        System.out.println("writeXML");
+        String dirName = "";
+        ConvertHTMLPost instance = new ConvertHTMLPost();
+        List expResult = null;
+        List result = instance.writeXML(dirName);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getFiles method, of class ConvertHTMLPost.
+     */
+    @Test
+    public void testGetFiles() throws Exception {
+        System.out.println("getFiles");
+        String dirName = "";
+        ConvertHTMLPost instance = new ConvertHTMLPost();
+        List expResult = null;
+        List result = instance.getFiles(dirName);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of main method, of class ConvertHTMLPost.
+     */
+    @Test
+    public void testMain() throws Exception {
+        System.out.println("main");
+        String[] args = null;
+        ConvertHTMLPost.main(args);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addFile method, of class ConvertHTMLPost.
+     */
+    @Test
+    public void testAddFile() throws Exception {
+        System.out.println("addFile");
+        String fileName = "";
+        List<String> output = null;
+        ConvertHTMLPost instance = new ConvertHTMLPost();
+        instance.addFile(fileName, output);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }
