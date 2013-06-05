@@ -213,11 +213,10 @@ public class ArticleTest {
     public void testGetPostDate() {
         System.out.println("getPostDate");
         Article instance = new Article();
-        String expResult = "";
+        String expResult = null;
         String result = instance.getPostDate();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -227,11 +226,9 @@ public class ArticleTest {
     public void testGetEndContent() {
         System.out.println("getEndContent");
         Article instance = new Article();
-        String expResult = "";
+        String expResult = "]]></content:encoded>\n";
         String result = instance.getEndContent();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -242,7 +239,7 @@ public class ArticleTest {
         System.out.println("getPostIdString");
         int postId = 0;
         Article instance = new Article();
-        String expResult = "<wp:post_date>0</wp:post_date>";
+        String expResult = "<wp:post_id>0</wp:post_id>";
         String result = instance.getPostIdString(postId);
         assertEquals(expResult, result);
 
@@ -320,7 +317,13 @@ public class ArticleTest {
     public void testGetFixedStatusStrings() {
         System.out.println("getFixedStatusStrings");
         Article instance = new Article();
-        String expResult = "<wp:status>publish</wp:status>";
+        String expResult = "<wp:status>publish</wp:status>"
+                + "<wp:post_parent>0</wp:post_parent>"
+                + "<wp:menu_order>0</wp:menu_order>"
+                + "<wp:post_type>post</wp:post_type>"
+                + "<wp:post_password></wp:post_password>"
+                + "<wp:is_sticky>0</wp:is_sticky>"
+                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>";
         String result = instance.getFixedStatusStrings();
         assertEquals(expResult, result);
 
@@ -336,7 +339,7 @@ public class ArticleTest {
         input.add("Test");
         input.add("Test2");
         Article instance = new Article();
-        String expResult = "";
+        String expResult = null;
         String result = instance.addItem(input);
         assertEquals(expResult, result);
 
@@ -348,9 +351,9 @@ public class ArticleTest {
     @Test
     public void testWrapItem() {
         System.out.println("wrapItem");
-        String item = "<item></item>";
+        String item = "";
         Article instance = new Article();
-        String expResult = "";
+        String expResult = "<item></item>";
         String result = instance.wrapItem(item);
         assertEquals(expResult, result);
 

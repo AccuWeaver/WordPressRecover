@@ -168,7 +168,7 @@ public class Article {
     public String getPostIdString(int postId) {
         return "<wp:post_id>"
                 + postId++
-                + "</wp:post_id>\n";
+                + "</wp:post_id>";
     }
 
     /**
