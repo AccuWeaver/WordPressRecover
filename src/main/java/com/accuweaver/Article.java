@@ -56,7 +56,6 @@ public class Article {
         StringBuilder sb = new StringBuilder();
         sb.append(getPostIdString(postId++));
         sb.append(getPostDateString());
-        sb.append(getPostDateString());
         sb.append(getPostDateGMTString());
         sb.append(getCommentStatusString());
         sb.append(getPingStatusString());
