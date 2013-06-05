@@ -1,6 +1,8 @@
 package com.accuweaver;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +32,8 @@ public class Article {
     private String commentStatus = "open";
     // Ping status - default to "open"
     private String pingStatus = "open";
+    // Tags
+    private List<String> tags;
 
     /**
      * Constructor ...
@@ -327,6 +331,7 @@ public class Article {
                     break;
                 }
                 // TODO: this line also contains the tags, categories and post ID
+                parseTags(s);
             }
 
             // Skip if we are on meta data ...
@@ -450,5 +455,40 @@ public class Article {
 
     private String getPingStatus() {
         return pingStatus;
+    }
+
+    /**
+     * @return the tags
+     */
+    public List<String> getTags() {
+        return tags;
+    }
+
+    /**
+     * @param tags the tags to set
+     */
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * Parse the tags from a line ...
+     *
+     * @param s
+     */
+    private void parseTags(String s) {
+        if (s.contains("tag-")) {
+            String[] firstTag = s.split(" tag-");
+            // Remove the content after the tags ...
+            firstTag[firstTag.length-1] = firstTag[firstTag.length-1].split(" content-")[0];
+            // Copy everything but the first one ...
+            firstTag = Arrays.copyOfRange(firstTag, 1, firstTag.length);
+            // Initialize the array ...
+            tags = new ArrayList<>(firstTag.length);
+            // Loop ...
+            for (String tag : firstTag) {
+                tags.add(tag);
+            }
+        }
     }
 }

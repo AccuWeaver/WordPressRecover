@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,8 +34,20 @@ public class ArticleTest {
     private static final Logger logger = Logger.getLogger(ArticleTest.class.getName());
     // Encoding for page
     private final static Charset ENCODING = StandardCharsets.UTF_8;
+    // Test file (actual data) ...
     private final static String TEST_FILE_NAME = getRelativeFileName("/data/input/2008/11/19/web-marketing/index.html");
+    // input array that we read in from TEST_FILE_NAME ...
     private static List<String> testInput;
+    // String representing what we see for a post ...
+    private final static String POST_ARTICLE = "<article "
+            + "id=\"post-17\" class=\"post-17 post type-post status-publish "
+            + "format-standard hentry category-restful-web-services category-web "
+            + "tag-data tag-data-formats tag-html tag-markup-language tag-tools "
+            + "tag-uniform-resource-locator tag-xhtml tag-xml content-single \">";
+    // String representing what we see for a page
+    private final static String PAGE_ARTICLE = "<article id=\"post-1958\" "
+            + "class=\"post-1958 page type-page status-publish hentry "
+            + "content-page\">";
 
     public ArticleTest() {
     }
@@ -253,9 +266,9 @@ public class ArticleTest {
                 + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>";
         String result = instance.getContent();
         assertEquals(expResult, result);
-        
+
         instance = new Article(testInput);
-        
+
     }
 
     /**
@@ -398,9 +411,9 @@ public class ArticleTest {
         // Now test something more meaningful: use a test file that we know will
         // produce an actual result to see if we get the values set the way we
         // expect ...
-        
+
         // TODO: fix this up to be a more accurate test using a simpler file
-        
+
         expResult = "<item><title>Web marketing</title><content:encoded><![CDATA[\n"
                 + "		<p>Recently I&#8217;ve entered the world of using "
                 + "the web for self <a class=\"zem_slink freebase/en/marketing\" "
@@ -527,6 +540,46 @@ public class ArticleTest {
                 + "</item>";
         result = instance.addItem(testInput);
         assertEquals(expResult, result);
+
+        // Now test the page (instead of post) to make sure we get nothing 
+        // should break before we parse the tags.
+        instance = new Article();
+        List<String> page = new ArrayList<>();
+        page.add(PAGE_ARTICLE);
+        instance.addItem(page);
+        assertEquals(null, instance.getTags());
+
+        // And then test if we get some real value from the data when we
+        // use one that has tags ...
+        List<String> post = new ArrayList<>();
+        post.add(POST_ARTICLE);
+        instance.addItem(post);
+        List<String> expectedTags = new ArrayList<>();
+        expectedTags.add("data");
+        expectedTags.add("data-formats");
+        expectedTags.add("html");
+        expectedTags.add("markup-language");
+        expectedTags.add("tools");
+        expectedTags.add("uniform-resource-locator");
+        expectedTags.add("xhtml");
+        expectedTags.add("xml");
+        List<String> results = instance.getTags();
+        assertEquals(results.size(), 8);
+        Iterator it = results.iterator();
+        for (String expected : expectedTags) {
+            if (it.hasNext()) {
+                result = (String) (it.next());
+                if (result.equalsIgnoreCase(expected)) {
+                    continue;
+                } else {
+                    fail("Failed to match '" + expected + "' for result of '" + result + "'");
+                    break;
+                }
+            } else {
+                fail("Expected " + expectedTags.size() + " but got " + results.size() + " results");
+                break;
+            }
+        }
     }
 
     /**
