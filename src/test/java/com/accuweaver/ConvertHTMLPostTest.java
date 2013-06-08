@@ -385,8 +385,8 @@ public class ConvertHTMLPostTest {
         System.out.println("getFiles");
         String dirName = "";
         ConvertHTMLPost instance = new ConvertHTMLPost();
-        List<String> expResult = new ArrayList<>();
-        List result = instance.getFiles(dirName);
+        List<Path> expResult = new ArrayList<>();
+        List<Path> result = instance.getFiles(dirName);
         assertEquals(expResult, result);
     }
 

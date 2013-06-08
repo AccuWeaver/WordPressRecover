@@ -176,7 +176,7 @@ public class Article {
      */
     public String getPostIdString(int postId) {
         return "<wp:post_id>"
-                + postId++
+                + postId
                 + "</wp:post_id>";
     }
 
