@@ -523,7 +523,7 @@ public class ArticleTest {
                 + "onclick=\"javascript:_gaq.push(['_trackEvent','outbound-article',"
                 + "'http://www.brightideasandconcepts.com']);\">Valerie Colber"
                 + "</a> &#8230;</p>]]></content:encoded>\n"
-                + "<wp:post_id>21</wp:post_id>"
+                + "<wp:post_id>6</wp:post_id>"
                 + "<wp:post_date>2008-11-19 19:26:34</wp:post_date>"
                 + "<wp:post_date_gmt>2008-11-19 19:26:34</wp:post_date_gmt>"
                 + "<wp:comment_status>open</wp:comment_status>"
@@ -569,12 +569,7 @@ public class ArticleTest {
         for (String expected : expectedTags) {
             if (it.hasNext()) {
                 result = (String) (it.next());
-                if (result.equalsIgnoreCase(expected)) {
-                    continue;
-                } else {
-                    fail("Failed to match '" + expected + "' for result of '" + result + "'");
-                    break;
-                }
+                assertEquals(expected, result);
             } else {
                 fail("Expected " + expectedTags.size() + " but got " + results.size() + " results");
                 break;
@@ -595,4 +590,55 @@ public class ArticleTest {
         assertEquals(expResult, result);
 
     }
+
+    /**
+     * Test of getTags method, of class Article.
+     */
+    @Test
+    public void testGetTags() {
+        System.out.println("getTags");
+        Article instance = new Article();
+        List expResult = null;
+        List result = instance.getTags();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setTags method, of class Article.
+     */
+    @Test
+    public void testSetTags() {
+        System.out.println("setTags");
+        List<String> tags = null;
+        Article instance = new Article();
+        instance.setTags(tags);
+    }
+
+    /**
+     * Test of parseTags method, of class Article.
+     */
+    @Test
+    public void testParseTags() {
+        System.out.println("parseTags");
+        String s = "";
+        Article instance = new Article();
+        List expResult = null;
+        List result = instance.parseTags(s);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of parsePostId method, of class Article.
+     */
+    @Test
+    public void testParsePostId() {
+        System.out.println("parsePostId");
+        String s = "";
+        Article instance = new Article();
+        int expResult = 21;
+        int result = instance.parsePostId(s);
+        assertEquals(expResult, result);
+        
+    }
+
 }

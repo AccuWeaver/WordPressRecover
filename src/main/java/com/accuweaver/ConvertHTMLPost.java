@@ -323,7 +323,10 @@ public class ConvertHTMLPost {
      * @param output The array to add the contents of the file to.
      * @throws IOException If there are any errors like file doesn't exist, etc.
      */
-    public void addFile(String fileName, List<String> output) throws IOException {
+    public List<String> addFile(String fileName, List<String> output) throws IOException {
+        if (output == null){
+            output = new ArrayList<String>();
+        }
         List<String> contents = this.readSmallTextFile(fileName);
 
         if (contents.size() > 0) {
@@ -332,6 +335,7 @@ public class ConvertHTMLPost {
             Article article = new Article(contents);
             output.add(article.getPostContents());
         }
+        return output;
     }
 
     /**

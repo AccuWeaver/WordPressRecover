@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,8 +15,10 @@ import java.util.regex.Pattern;
  * @author rweaver
  */
 public class Article {
-    // Starting post ID
 
+    // Logging
+    private static final Logger logger = Logger.getLogger(Article.class.getName());
+    // Starting post ID
     private int postId = 21;
     // Url data ...
     private String url;
@@ -34,6 +38,8 @@ public class Article {
     private String pingStatus = "open";
     // Tags
     private List<String> tags;
+    // Categories
+    private List<String> categories;
 
     /**
      * Constructor ...
@@ -330,8 +336,11 @@ public class Article {
                 if (!s.contains("type-post")) {
                     break;
                 }
-                // TODO: this line also contains the tags, categories and post ID
+                // Parse the tags from this line
                 parseTags(s);
+                // Parse out the post ID
+                parsePostId(s);
+
             }
 
             // Skip if we are on meta data ...
@@ -475,8 +484,9 @@ public class Article {
      * Parse the tags from a line ...
      *
      * @param s
+     * @return  
      */
-    private void parseTags(String s) {
+    public List<String> parseTags(String s) {
         if (s.contains("tag-")) {
             String[] firstTag = s.split(" tag-");
             // Remove the content after the tags ...
@@ -485,10 +495,27 @@ public class Article {
             firstTag = Arrays.copyOfRange(firstTag, 1, firstTag.length);
             // Initialize the array ...
             tags = new ArrayList<>(firstTag.length);
-            // Loop ...
-            for (String tag : firstTag) {
-                tags.add(tag);
+            tags.addAll(Arrays.asList(firstTag));
+        }
+        return tags;
+    }
+
+    /**
+     *
+     * @param s
+     * @return
+     */
+    public int parsePostId(String s) {
+        if (s.contains("id=\"")){
+            String[] postSplit = s.split("id=\"post-",2);
+            postSplit = postSplit[1].split("\"",2);
+            try {
+            this.postId = Integer.parseInt(postSplit[0]); 
+            } catch (NumberFormatException nfe){
+                logger.log(Level.WARNING, s, nfe);
             }
         }
+        return this.postId;
     }
+
 }
