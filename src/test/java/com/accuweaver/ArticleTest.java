@@ -263,11 +263,30 @@ public class ArticleTest {
                 + "<wp:post_type>post</wp:post_type>"
                 + "<wp:post_password></wp:post_password>"
                 + "<wp:is_sticky>0</wp:is_sticky>"
-                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>";
+                + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>";
         String result = instance.getContent();
         assertEquals(expResult, result);
 
+        expResult = "<wp:post_id>7</wp:post_id>"
+                + "<wp:post_date>2008-11-19 19:26:34</wp:post_date>"
+                + "<wp:post_date_gmt>2008-11-19 19:26:34</wp:post_date_gmt>"
+                + "<wp:comment_status>open</wp:comment_status>"
+                + "<wp:ping_status>open</wp:ping_status>"
+                + "<wp:post_name>web-marketing</wp:post_name>"
+                + "<wp:status>publish</wp:status>"
+                + "<wp:post_parent>0</wp:post_parent>"
+                + "<wp:menu_order>0</wp:menu_order>"
+                + "<wp:post_type>post</wp:post_type>"
+                + "<wp:post_password></wp:post_password>"
+                + "<wp:is_sticky>0</wp:is_sticky>"
+                + "<category domain=\"category\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
+                + "<category domain=\"category\" nicename=\"networking\"><![CDATA[networking]]></category>"
+                + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>";
         instance = new Article(testInput);
+        result = instance.getContent();
+        assertEquals(expResult, result);
 
     }
 
@@ -376,7 +395,7 @@ public class ArticleTest {
     }
 
     /**
-     * Test of getFixedStatusStrings method, of class Article.
+     * Test of getPostMetaData method, of class Article.
      */
     @Test
     public void testGetFixedStatusStrings() {
@@ -388,8 +407,9 @@ public class ArticleTest {
                 + "<wp:post_type>post</wp:post_type>"
                 + "<wp:post_password></wp:post_password>"
                 + "<wp:is_sticky>0</wp:is_sticky>"
-                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>";
-        String result = instance.getFixedStatusStrings();
+                + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>";
+        String result = instance.getPostMetaData();
         assertEquals(expResult, result);
 
     }
@@ -535,8 +555,10 @@ public class ArticleTest {
                 + "<wp:post_type>post</wp:post_type>"
                 + "<wp:post_password></wp:post_password>"
                 + "<wp:is_sticky>0</wp:is_sticky>"
-                + "<category domain=\"post_tag\" nicename=\"recovered\">"
-                + "<![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"category\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
+                + "<category domain=\"category\" nicename=\"networking\"><![CDATA[networking]]></category>"
+                + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>"
                 + "</item>";
         result = instance.addItem(testInput);
         assertEquals(expResult, result);
@@ -638,6 +660,50 @@ public class ArticleTest {
         int expResult = 21;
         int result = instance.parsePostId(s);
         assertEquals(expResult, result);
+        
+    }
+    
+    /**
+     * Test of getCategories method ..
+     */
+    @Test
+    public void testGetCategories() throws IOException{
+        System.out.println("getCategories");
+        List<String> expectedCategories = new ArrayList<>();
+        Article article = new Article();
+        List<String> resultCategories = article.getCategories();
+        assertEquals(null, resultCategories);
+        
+        // Now set the categories ...
+        article.setCategories(new ArrayList());
+        resultCategories = article.getCategories();
+        assertEquals(expectedCategories, resultCategories);
+        
+        // And repeat with some actual values ...
+        expectedCategories.add("test");
+        expectedCategories.add("test");
+        article.setCategories(expectedCategories);
+        resultCategories = article.getCategories();
+        assertEquals(expectedCategories, resultCategories);
+
+        // Now test the constructor with a PAGE article 
+        // Expect null categories because we throw these ones away
+        List<String> inputList = new ArrayList<>();
+        inputList.add(PAGE_ARTICLE);
+        article = new Article(inputList);
+        resultCategories = article.getCategories();
+        assertEquals(null, resultCategories);
+        
+        // Now test the contstructor with a POST article
+        // Expect the categories we have on the article tag
+        inputList = new ArrayList<>();
+        inputList.add(POST_ARTICLE);
+        article = new Article(inputList);
+        expectedCategories = new ArrayList<>();
+        expectedCategories.add("restful-web-services");
+        expectedCategories.add("web");
+        resultCategories = article.getCategories();
+        assertEquals(expectedCategories, resultCategories);
         
     }
 

@@ -218,7 +218,7 @@ public class ConvertHTMLPostTest {
         System.out.println("writeXML");
         String dirName = DIR_NAME;
         ConvertHTMLPost instance = new ConvertHTMLPost();
-        List<String> expResults = new ArrayList<String>();
+        List<String> expResults = new ArrayList<>();
         
         // TODO: move all these strings to constants ...
         
@@ -310,7 +310,11 @@ public class ConvertHTMLPostTest {
                 + "<wp:post_type>post</wp:post_type>"
                 + "<wp:post_password></wp:post_password>"
                 + "<wp:is_sticky>0</wp:is_sticky>"
-                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category></item>");
+                + "<category domain=\"category\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
+                + "<category domain=\"category\" nicename=\"networking\"><![CDATA[networking]]></category>"
+                + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>"
+                + "</item>");
 
         // Second Post file name.
         expResults.add("\n<!-- '/Users/robweaver/NetBeansProjects/WordPressRecover/target/test-classes/data/input/2008/11/21/plaxo-the-service-i-lovehate/index.html' -->\n");
@@ -350,7 +354,10 @@ public class ConvertHTMLPostTest {
                 + "<wp:post_type>post</wp:post_type>"
                 + "<wp:post_password></wp:post_password>"
                 + "<wp:is_sticky>0</wp:is_sticky>"
-                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category></item>");
+                + "<category domain=\"category\" nicename=\"web\"><![CDATA[web]]></category>"
+                + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>"
+                + "</item>");
 
         // Closing tags for channel and rss
         expResults.add("    </channel>\n"
@@ -378,7 +385,7 @@ public class ConvertHTMLPostTest {
         System.out.println("getFiles");
         String dirName = "";
         ConvertHTMLPost instance = new ConvertHTMLPost();
-        List<String> expResult = new ArrayList<String>();
+        List<String> expResult = new ArrayList<>();
         List result = instance.getFiles(dirName);
         assertEquals(expResult, result);
     }
@@ -389,7 +396,7 @@ public class ConvertHTMLPostTest {
     @Test
     public void testAddFile() throws Exception {
         System.out.println("addFile");
-        List<String> output = new ArrayList<String>();
+        List<String> output = new ArrayList<>();
         ConvertHTMLPost instance = new ConvertHTMLPost();
         instance.addFile(INPUT_FILE, output);
     }

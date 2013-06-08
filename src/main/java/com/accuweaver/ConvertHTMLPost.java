@@ -161,7 +161,6 @@ public class ConvertHTMLPost {
         }
         return paths;
     }
- 
 
     /**
      * Main method
@@ -324,16 +323,21 @@ public class ConvertHTMLPost {
      * @throws IOException If there are any errors like file doesn't exist, etc.
      */
     public List<String> addFile(String fileName, List<String> output) throws IOException {
-        if (output == null){
-            output = new ArrayList<String>();
+        if (output == null) {
+            output = new ArrayList<>();
         }
         List<String> contents = this.readSmallTextFile(fileName);
 
         if (contents.size() > 0) {
             // This will be a loop once I figure out the tree structure ...
-            output.add("\n<!-- '" + fileName + "' -->\n");
             Article article = new Article(contents);
-            output.add(article.getPostContents());
+            String s = article.getPostContents();
+            if (s != null) {
+                output.add("\n<!-- '" + fileName + "' -->\n");
+                output.add(article.getPostContents());
+            } else {
+                logger.log(Level.WARNING, "No content on file ''{0}''", fileName);
+            }
         }
         return output;
     }
@@ -366,6 +370,4 @@ public class ConvertHTMLPost {
         Path path = Paths.get(aFileName);
         Files.write(path, aLines, ENCODING);
     }
-
-
 }

@@ -70,7 +70,7 @@ public class Article {
         sb.append(getCommentStatusString());
         sb.append(getPingStatusString());
         sb.append(getPostNameString());
-        sb.append(getFixedStatusStrings());
+        sb.append(getPostMetaData());
         return sb.toString();
     }
 
@@ -270,7 +270,8 @@ public class Article {
      *
      * @return
      */
-    public String getFixedStatusStrings() {
+    public String getPostMetaData() {
+
         StringBuilder sb = new StringBuilder();
         sb.append("<wp:status>publish</wp:status>");
         sb.append("<wp:post_parent>0</wp:post_parent>");
@@ -278,7 +279,11 @@ public class Article {
         sb.append("<wp:post_type>post</wp:post_type>");
         sb.append("<wp:post_password></wp:post_password>");
         sb.append("<wp:is_sticky>0</wp:is_sticky>");
-        sb.append("<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>");
+        if (categories != null) {
+            sb.append(getPostMetaDataCategories());
+        }
+        sb.append("<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>");
+        sb.append("<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>");
         return sb.toString();
     }
 
@@ -340,6 +345,8 @@ public class Article {
                 parseTags(s);
                 // Parse out the post ID
                 parsePostId(s);
+                // Parse out the categories from this line
+                parseCategories(s);
 
             }
 
@@ -384,7 +391,7 @@ public class Article {
                 }
 
                 // Add the title if we found one ...
-                if (getPostTitle().length() > 0) {
+                if (!noTitle) {
                     sb.append("<title>");
                     sb.append(getPostTitle());
                     sb.append("</title>");
@@ -484,13 +491,13 @@ public class Article {
      * Parse the tags from a line ...
      *
      * @param s
-     * @return  
+     * @return
      */
     public List<String> parseTags(String s) {
         if (s.contains("tag-")) {
             String[] firstTag = s.split(" tag-");
             // Remove the content after the tags ...
-            firstTag[firstTag.length-1] = firstTag[firstTag.length-1].split(" content-")[0];
+            firstTag[firstTag.length - 1] = firstTag[firstTag.length - 1].split(" content-")[0];
             // Copy everything but the first one ...
             firstTag = Arrays.copyOfRange(firstTag, 1, firstTag.length);
             // Initialize the array ...
@@ -506,16 +513,68 @@ public class Article {
      * @return
      */
     public int parsePostId(String s) {
-        if (s.contains("id=\"")){
-            String[] postSplit = s.split("id=\"post-",2);
-            postSplit = postSplit[1].split("\"",2);
+        if (s.contains("id=\"")) {
+            String[] postSplit = s.split("id=\"post-", 2);
+            postSplit = postSplit[1].split("\"", 2);
             try {
-            this.postId = Integer.parseInt(postSplit[0]); 
-            } catch (NumberFormatException nfe){
+                this.postId = Integer.parseInt(postSplit[0]);
+            } catch (NumberFormatException nfe) {
                 logger.log(Level.WARNING, s, nfe);
             }
         }
         return this.postId;
     }
 
+    /**
+     * Get the categories
+     *
+     * @return Array of Strings representing the categories ...
+     *
+     */
+    List<String> getCategories() {
+        return this.categories;
+    }
+
+    /**
+     * @param categories the categories to set
+     */
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    /**
+     * Parse out the categories from the line ..
+     *
+     * @param s String to parse the categories from ...
+     */
+    private void parseCategories(String s) {
+        if (s.contains("category-")) {
+            String[] firstCategory = s.split(" category-");
+            // Remove the content after the categories ...
+            firstCategory[firstCategory.length - 1] = firstCategory[firstCategory.length - 1].split(" tag-")[0];
+            // Copy everything but the first one ...
+            firstCategory = Arrays.copyOfRange(firstCategory, 1, firstCategory.length);
+            // Initialize the array ...
+            categories = new ArrayList<>(firstCategory.length);
+            categories.addAll(Arrays.asList(firstCategory));
+        }
+    }
+
+    /**
+     * Format the categories into the appropriate meta data strings
+     *
+     * @return
+     */
+    private String getPostMetaDataCategories() {
+
+        StringBuilder sb = new StringBuilder();
+        for (String s : categories) {
+            sb.append("<category domain=\"category\" nicename=\"");
+            sb.append(s);
+            sb.append("\"><![CDATA[");
+            sb.append(s);
+            sb.append("]]></category>");
+        }
+        return sb.toString();
+    }
 }
