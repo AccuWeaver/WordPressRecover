@@ -283,6 +283,9 @@ public class Article {
             sb.append(getPostMetaDataCategories());
         }
         sb.append("<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>");
+        if (tags != null) {
+            sb.append(getPostMetaDataTags());
+        }
         sb.append("<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>");
         return sb.toString();
     }
@@ -570,6 +573,23 @@ public class Article {
         StringBuilder sb = new StringBuilder();
         for (String s : categories) {
             sb.append("<category domain=\"category\" nicename=\"");
+            sb.append(s);
+            sb.append("\"><![CDATA[");
+            sb.append(s);
+            sb.append("]]></category>");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Return the formatted test strings ...
+     * 
+     * @return 
+     */
+    private Object getPostMetaDataTags() {
+        StringBuilder sb = new StringBuilder();
+        for (String s : tags) {
+            sb.append("<category domain=\"post_tag\" nicename=\"");
             sb.append(s);
             sb.append("\"><![CDATA[");
             sb.append(s);

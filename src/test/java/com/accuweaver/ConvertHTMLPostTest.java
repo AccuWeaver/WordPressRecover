@@ -313,6 +313,14 @@ public class ConvertHTMLPostTest {
                 + "<category domain=\"category\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
                 + "<category domain=\"category\" nicename=\"networking\"><![CDATA[networking]]></category>"
                 + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"facebook-2\"><![CDATA[facebook-2]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"linkedin\"><![CDATA[linkedin]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"naymz\"><![CDATA[naymz]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"search\"><![CDATA[search]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"web-design-and-development\"><![CDATA[web-design-and-development]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"web-search-engine\"><![CDATA[web-search-engine]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"website\"><![CDATA[website]]></category>"
                 + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>"
                 + "</item>");
 
@@ -356,6 +364,14 @@ public class ConvertHTMLPostTest {
                 + "<wp:is_sticky>0</wp:is_sticky>"
                 + "<category domain=\"category\" nicename=\"web\"><![CDATA[web]]></category>"
                 + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"att\"><![CDATA[att]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"comcast\"><![CDATA[comcast]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"facebook-2\"><![CDATA[facebook-2]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"google\"><![CDATA[google]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"iphone-2\"><![CDATA[iphone-2]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"linkedin\"><![CDATA[linkedin]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"microsoft-outlook\"><![CDATA[microsoft-outlook]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"plaxo\"><![CDATA[plaxo]]></category>"
                 + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>"
                 + "</item>");
 

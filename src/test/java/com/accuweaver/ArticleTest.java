@@ -283,6 +283,14 @@ public class ArticleTest {
                 + "<category domain=\"category\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
                 + "<category domain=\"category\" nicename=\"networking\"><![CDATA[networking]]></category>"
                 + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"facebook-2\"><![CDATA[facebook-2]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"linkedin\"><![CDATA[linkedin]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"naymz\"><![CDATA[naymz]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"search\"><![CDATA[search]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"web-design-and-development\"><![CDATA[web-design-and-development]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"web-search-engine\"><![CDATA[web-search-engine]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"website\"><![CDATA[website]]></category>"
                 + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>";
         instance = new Article(testInput);
         result = instance.getContent();
@@ -558,6 +566,14 @@ public class ArticleTest {
                 + "<category domain=\"category\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
                 + "<category domain=\"category\" nicename=\"networking\"><![CDATA[networking]]></category>"
                 + "<category domain=\"category\" nicename=\"recovered\"><![CDATA[Recovered Post]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"facebook-2\"><![CDATA[facebook-2]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"linkedin\"><![CDATA[linkedin]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"marketing\"><![CDATA[marketing]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"naymz\"><![CDATA[naymz]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"search\"><![CDATA[search]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"web-design-and-development\"><![CDATA[web-design-and-development]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"web-search-engine\"><![CDATA[web-search-engine]]></category>"
+                + "<category domain=\"post_tag\" nicename=\"website\"><![CDATA[website]]></category>"
                 + "<category domain=\"post_tag\" nicename=\"recovered\"><![CDATA[recovered]]></category>"
                 + "</item>";
         result = instance.addItem(testInput);
