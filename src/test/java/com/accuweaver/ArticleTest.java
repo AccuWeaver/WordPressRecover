@@ -586,6 +586,7 @@ public class ArticleTest {
         page.add(PAGE_ARTICLE);
         instance.addItem(page);
         assertEquals(null, instance.getTags());
+        
 
         // And then test if we get some real value from the data when we
         // use one that has tags ...
