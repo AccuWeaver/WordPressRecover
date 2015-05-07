@@ -95,6 +95,25 @@ public class ConvertHTMLPost {
     private static final String GENERATOR = "        <generator>http://wordpress.org/?v=3.5.1</generator>\n";
 
     /**
+     * Main method
+     *
+     * TODO: add Apache Commons CLI for argument parsing to allow for input of
+     * directory and options ...
+     *
+     * @param args the command line arguments
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        
+        ConvertHTMLPost converter = new ConvertHTMLPost();
+        
+        // Search through all the index.html files in the folder ...
+        List<String> output = converter.writeXML(DIR_NAME);
+        
+        converter.writeSmallTextFile(output, OUTPUT_FILE_NAME);
+    }
+
+    /**
      * Write the XML for this directory ...
      *
      * @param dirName
@@ -160,25 +179,6 @@ public class ConvertHTMLPost {
             }
         }
         return paths;
-    }
-
-    /**
-     * Main method
-     *
-     * TODO: add Apache Commons CLI for argument parsing to allow for input of
-     * directory and options ...
-     *
-     * @param args the command line arguments
-     * @throws IOException
-     */
-    public static void main(String[] args) throws IOException {
-
-        ConvertHTMLPost converter = new ConvertHTMLPost();
-
-        // Search through all the index.html files in the folder ...
-        List<String> output = converter.writeXML(DIR_NAME);
-
-        converter.writeSmallTextFile(output, OUTPUT_FILE_NAME);
     }
 
     /**

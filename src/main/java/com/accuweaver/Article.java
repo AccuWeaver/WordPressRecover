@@ -366,7 +366,7 @@ public class Article {
                 Matcher m = p.matcher(s);
                 m.find();
                 this.setUrl(m.group(1));
-                this.setPostname(this.getUrl().substring(this.getUrl().lastIndexOf("/") + 1));
+                this.setPostname(this.getUrl().substring(this.getUrl().lastIndexOf('/') + 1));
 
                 continue;
             }

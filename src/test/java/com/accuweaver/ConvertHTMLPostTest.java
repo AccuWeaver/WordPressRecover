@@ -16,10 +16,13 @@ import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -42,12 +45,6 @@ public class ConvertHTMLPostTest {
     /**
      *
      */
-    public ConvertHTMLPostTest() {
-    }
-
-    /**
-     *
-     */
     @BeforeClass
     public static void setUpClass() {
     }
@@ -57,6 +54,29 @@ public class ConvertHTMLPostTest {
      */
     @AfterClass
     public static void tearDownClass() {
+    }
+
+    /**
+     * Convenience method to get the full file system file name for testing
+     *
+     * @param fileName
+     * @return Full path for file in the test folder ...
+     */
+    public static String getRelativeFileName(String fileName) {
+        URL url = ConvertHTMLPostTest.class.getResource(fileName);
+        String returnValue = url.getPath();
+        
+        if (returnValue.startsWith("/C:")) {
+            returnValue = returnValue.substring(1);
+        }
+        logger.log(Level.INFO, "File ''{0}'' = ''{1}''", new Object[]{fileName, returnValue});
+        return returnValue;
+    }
+
+    /**
+     *
+     */
+    public ConvertHTMLPostTest() {
     }
 
     /**
@@ -85,8 +105,8 @@ public class ConvertHTMLPostTest {
         String dirName = DIR_WITH_CHILDREN;
         ConvertHTMLPost instance = new ConvertHTMLPost();
         List<Path> expResult = new ArrayList<>();
-
-
+        
+        
         // These are hard coded to my folder, probably should be in a folder in the project to make it all nicely portable.
         addToArray(DIR_WITHOUT_CHILDREN, expResult);
         addToArray(DIR2_WITHOUT_CHILDREN, expResult);
@@ -175,23 +195,6 @@ public class ConvertHTMLPostTest {
         assertEquals(
                 FileUtils.readFileToString(new File(OUTPUT_DIR + "test.txt"), "utf-8"),
                 FileUtils.readFileToString(new File(EXPECTED_FILE), "utf-8"));
-    }
-
-    /**
-     * Convenience method to get the full file system file name for testing
-     *
-     * @param fileName
-     * @return Full path for file in the test folder ...
-     */
-    public static String getRelativeFileName(String fileName) {
-        URL url = ConvertHTMLPostTest.class.getResource(fileName);
-        String returnValue = url.getPath();
-
-        if (returnValue.startsWith("/C:")) {
-            returnValue = returnValue.substring(1);
-        }
-        logger.log(Level.INFO, "File ''{0}'' = ''{1}''", new Object[]{fileName, returnValue});
-        return returnValue;
     }
 
     /**

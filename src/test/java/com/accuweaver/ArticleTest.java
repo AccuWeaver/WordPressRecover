@@ -20,10 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -48,9 +49,6 @@ public class ArticleTest {
     private final static String PAGE_ARTICLE = "<article id=\"post-1958\" "
             + "class=\"post-1958 page type-page status-publish hentry "
             + "content-page\">";
-
-    public ArticleTest() {
-    }
 
     @BeforeClass
     public static void setUpClass() throws IOException {
@@ -93,6 +91,9 @@ public class ArticleTest {
 
     @AfterClass
     public static void tearDownClass() {
+    }
+
+    public ArticleTest() {
     }
 
     @Before
