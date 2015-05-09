@@ -75,6 +75,8 @@ public class Article {
     }
 
     /**
+     * Getter for URL
+     * 
      * @return the url
      */
     public String getUrl() {
@@ -82,6 +84,8 @@ public class Article {
     }
 
     /**
+     * Setter for URL
+     * 
      * @param url the url to set
      */
     public void setUrl(String url) {
@@ -143,6 +147,8 @@ public class Article {
     }
 
     /**
+     * Getter for the post title
+     * 
      * @return the postTitle
      */
     public String getPostTitle() {
@@ -150,6 +156,8 @@ public class Article {
     }
 
     /**
+     * Setter for the post title
+     * 
      * @param postTitle the postTitle to set
      */
     public void setPostTitle(String postTitle) {
