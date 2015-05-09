@@ -65,7 +65,7 @@ public class ConvertHTMLPostTest {
     public static String getRelativeFileName(String fileName) {
         URL url = ConvertHTMLPostTest.class.getResource(fileName);
         String returnValue = url.getPath();
-        
+
         if (returnValue.startsWith("/C:")) {
             returnValue = returnValue.substring(1);
         }
@@ -105,8 +105,7 @@ public class ConvertHTMLPostTest {
         String dirName = DIR_WITH_CHILDREN;
         ConvertHTMLPost instance = new ConvertHTMLPost();
         List<Path> expResult = new ArrayList<>();
-        
-        
+
         // These are hard coded to my folder, probably should be in a folder in the project to make it all nicely portable.
         addToArray(DIR_WITHOUT_CHILDREN, expResult);
         addToArray(DIR2_WITHOUT_CHILDREN, expResult);
@@ -117,7 +116,6 @@ public class ConvertHTMLPostTest {
         // Test again for good measure ...
         result = instance.getBottomBranches(DIR_NAME);
         assertEquals(expResult, result);
-
 
     }
 
@@ -222,9 +220,8 @@ public class ConvertHTMLPostTest {
         String dirName = DIR_NAME;
         ConvertHTMLPost instance = new ConvertHTMLPost();
         List<String> expResults = new ArrayList<>();
-        
+
         // TODO: move all these strings to constants ...
-        
         // XML string
         expResults.add("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
         // Comments and RSS tag ..
@@ -279,8 +276,7 @@ public class ConvertHTMLPostTest {
         expResults.add("        <generator>http://wordpress.org/?v=3.5.1</generator>\n");
 
         // file information (where this came from) ..
-        expResults.add("\n<!-- '/Users/robweaver/NetBeansProjects/WordPressRecover/target/test-classes/data/input/2008/11/19/web-marketing/index.html' -->\n");
-
+        expResults.add("\n<!-- '" + DIR_WITHOUT_CHILDREN + "/index.html' -->\n");
 
         // Post (item)
         expResults.add("<item>"
@@ -328,7 +324,7 @@ public class ConvertHTMLPostTest {
                 + "</item>");
 
         // Second Post file name.
-        expResults.add("\n<!-- '/Users/robweaver/NetBeansProjects/WordPressRecover/target/test-classes/data/input/2008/11/21/plaxo-the-service-i-lovehate/index.html' -->\n");
+        expResults.add("\n<!-- '" + DIR2_WITHOUT_CHILDREN + "/index.html' -->\n");
 
         // Second post contents
         expResults.add("<item><title>Plaxo: the service I love/hate</title>"
