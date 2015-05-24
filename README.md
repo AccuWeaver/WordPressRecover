@@ -1,4 +1,4 @@
-# WordPressRecover
+# WordPressRecover [![Build Status](https://travis-ci.org/AccuWeaver/WordPressRecover.svg?branch=master)](https://travis-ci.org/AccuWeaver/WordPressRecover)
 
 Code to recover WP blog entries from SuperCache
 
